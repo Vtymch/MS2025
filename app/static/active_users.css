@@ -1,0 +1,48 @@
+/* Set the font and main styles for the entire page */
+body {
+    font-family: Arial, sans-serif; /* Main font */
+    background-color: #f4f4f9; /* Page background color */
+    color: #333; /* Text color */
+    margin: 0; /* Remove outer margins */
+    padding: 20px; /* Add inner padding */
+}
+
+/* Styling for the h1 heading */
+h1 {
+    text-align: center; /* Center the text */
+    color: #5A9BD5; /* Heading color */
+}
+
+/* Table styling */
+table {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Remove spacing between borders */
+    margin-top: 20px; /* Add margin above the table */
+}
+
+/* Borders for table, headers, and cells */
+table, th, td {
+    border: 1px solid #ddd; /* Light gray border */
+}
+
+/* Padding and alignment for table headers and cells */
+th, td {
+    padding: 10px; /* Add padding */
+    text-align: left; /* Align text to the left */
+}
+
+/* Styling for table headers */
+th {
+    background-color: #5A9BD5; /* Header background color */
+    color: white; /* Header text color */
+}
+
+/* Alternating row colors for better readability */
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray for even rows */
+}
+
+/* Change background color when hovering over a row */
+tr:hover {
+    background-color: #f1f1f1; /* Slightly darker gray */
+}

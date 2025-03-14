@@ -1,0 +1,27 @@
+global:
+  scrape_interval: 15s  # Частота сбора метрик
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['prometheus:9090']  # Используйте имя сервиса вместо localhost
+
+  - job_name: 'master-server'
+    static_configs:
+      - targets: ['master-server:8000']  # Используйте имя сервиса вместо localhost
+
+  - job_name: 'ping-monitoring'
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    static_configs:
+      - targets:
+        - 8.8.8.8  # Google
+        - 1.1.1.1  # Cloudflare
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115  # Используйте имя сервиса blackbox вместо localhost

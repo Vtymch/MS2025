@@ -1,0 +1,52 @@
+services:
+  # Master server service
+  master-server:
+    build: .  # Build the Docker image from the current directory
+    ports:
+      - "8000:8000"  # Map port 8000 on the host to port 8000 on the container
+    environment:
+      - DATABASE_URL=sqlite:///app/users.db  # Set the database URL for SQLite
+    volumes:
+      - ./app:/app  # Mount the local 'app' directory to the container's '/app' directory
+      - ./users.db:/app/users.db  # Mount the local 'users.db' to the container's database path
+      - ./wait-for-it.sh:/app/wait-for-it.sh  # Mount 'wait-for-it.sh' script for waiting on services
+    depends_on:
+      - prometheus  # Ensure Prometheus is started before the master-server
+    command: ./wait-for-it.sh prometheus:9090 -- uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload  # Wait for Prometheus to be ready, then start the FastAPI server
+    networks:
+      - monitoring  # Attach the service to the 'monitoring' network
+
+  # Prometheus service for monitoring
+  prometheus:
+    image: prom/prometheus:latest  # Use the latest Prometheus image
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Mount the custom Prometheus config file
+    ports:
+      - "9090:9090"  # Expose Prometheus web UI on port 9090
+    networks:
+      - monitoring  # Attach the service to the 'monitoring' network
+
+  # Grafana service for visualization
+  grafana:
+    image: grafana/grafana:latest  # Use the latest Grafana image
+    ports:
+      - "3001:3000"  # Expose Grafana on port 3001
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=Lenina13759  # Set Grafana admin password
+    depends_on:
+      - prometheus  # Ensure Prometheus is started before Grafana
+    networks:
+      - monitoring  # Attach the service to the 'monitoring' network
+
+  # Blackbox exporter service for monitoring external services
+  blackbox:
+    image: prom/blackbox-exporter:latest  # Use the latest Blackbox exporter image
+    ports:
+      - "9115:9115"  # Expose Blackbox exporter on port 9115
+    networks:
+      - monitoring  # Attach the service to the 'monitoring' network
+
+# Networks section for creating a bridge network
+networks:
+  monitoring:
+    driver: bridge  # Use the 'bridge' network driver for communication between services

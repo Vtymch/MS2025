@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Users</title>
+    <link rel="stylesheet" href="/static/active_users.css">
+</head>
+<body>
+
+    <h1>Active Users</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Last Login</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in active_users %}
+                <tr>
+                    <td>{{ user[0] }}</td>
+                    <td>{{ user[1] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
+
+

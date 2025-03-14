@@ -1,0 +1,397 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Luminari&display=swap');
+
+body {
+    font-family: 'UnifrakturMaguntia', cursive;
+    background: #1a1a1a url('/static/background.png') center/cover no-repeat fixed;
+    color: #f4f1e1;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    animation: fadeIn 2s ease-in;
+    cursor: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.fire-container, .ash-container {
+    position: absolute;
+    pointer-events: none; /* элементы не будут перекрывать другие элементы */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* чтобы элементы были поверх всего */
+  }
+
+  .fire {
+    position: absolute;
+    background: linear-gradient(45deg, rgba(255, 69, 0, 0.8), rgba(255, 140, 0, 0.8));
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    animation: fireAnimation 0.5s ease-out infinite;
+  }
+
+/* Анимация огня */
+@keyframes fireAnimation {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+      top: -30px; /* поднимем огонь вверх */
+    }
+  }
+
+.ash-container .ash {
+    animation-delay: calc(0.1s * var(--i)); /* Для разных задержек анимаций */
+}
+
+/* Пепел */
+.ash {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.5); /* Полупрозрачный белый для пепла */
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    animation: ashAnimation 2s ease-out infinite;
+  }
+
+/* Анимация пепла */
+@keyframes ashAnimation {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-30px) scale(0.5); /* пепел будет подниматься вверх и уменьшаться */
+    }
+  }
+
+.off-screen-menu {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.11), rgba(26, 26, 26, 0.8)); /* Градиент сверху темнее, снизу основной цвет */
+    height: 100vh;
+    width: 100%;
+    max-width: 450px;
+    position: fixed;
+    top: 0;
+    right: -450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 3rem;
+    transition: .3s ease;
+    overflow: hidden;
+}
+
+/* Эффект пепла для меню */
+.off-screen-menu .ash-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10; /* Убедитесь, что пепел не перекрывает другие элементы */
+}
+
+.off-screen-menu.active {
+    right: 0;
+}
+
+.ham-menu {
+    height: 50px;
+    width: 50px;
+    margin-left: 93%;
+    position: absolute;
+    cursor: pointer;
+    top: 30px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.ham-menu span {
+    height: 5px;
+    width: 100%;
+    background-color: #f4f1e1;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: .3s ease;
+}
+
+.ham-menu span:nth-child(1) {
+    top: 25%;
+}
+
+.ham-menu span:nth-child(3) {
+    top: 75%;
+}
+
+.ham-menu.active span:nth-child(1) {
+    top: 50%;
+    transform: translate(-50%, 50%) rotate(45deg);
+}
+
+.ham-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.ham-menu.active span:nth-child(3) {
+    top: 50%;
+    transform: translate(-50%, 50%) rotate(-45deg);
+}
+
+.off-screen-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.off-screen-menu li {
+    margin: 15px 0;
+}
+
+.off-screen-menu a {
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Luminari', serif;  /* Шрифт Luminari */
+    font-size: 0.7em; /* Можно изменить размер, если нужно */
+    display: block;
+    transition: color 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.7); /* Темный фон для ссылок */
+}
+
+.off-screen-menu a:hover {
+    color: #d4af37; /* Цвет при наведении */
+}
+
+.menu-link {
+    display: block;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+
+
+/* Анимация пепла */
+.ash-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.ash {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    from { transform: translateY(-10vh) translateX(0); opacity: 1; }
+    to { transform: translateY(100vh) translateX(-10vw); opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes ashes {
+    0% { opacity: 0.5; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-50px); }
+}
+
+.ash-container .ash {
+    animation-delay: calc(0.1s * var(--i)); /* Для разных задержек анимаций */
+  }
+
+/* Основная структура */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: rgba(26, 26, 26, 0.9);
+    color: #fff;
+    padding: 15px 20px;
+    border-bottom: 3px solid #d7af8d;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.status, .users, .auth {
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #d4af37;
+    width: 50%;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+/* Стиль кнопок */
+button {
+    background: #5c3c1d;
+    color: #d4af37;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #8b5e34;
+}
+
+/* Видео-фон */
+.hero {
+    position: relative;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #f4f1e1;
+    overflow: hidden;
+}
+
+.hero video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+    font-family: 'Luminari', fantasy;
+}
+
+.hero p {
+    font-size: 1.1em;
+    position: relative;
+    z-index: 1;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+    .hero {
+        height: auto;
+        padding: 40px 20px;
+    }
+    .section {
+        width: 90%;
+    }
+}
+
+/* Контейнер */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 60px;
+}
+
+/* Шрифты и ссылки */
+a {
+    font-family: 'Luminari', fantasy;
+    color: #d7af8d;
+}
+
+a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.ashes {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #d4af37;
+    border-radius: 50%;
+    animation: ashes 3s infinite;
+}
+
+
+.auth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Стиль для кнопок */
+.auth-btn {
+    background: #5c3c1d;
+    color: #d4af37;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: auto;
+    min-width: 200px;  /* Минимальная ширина для кнопок */
+    text-align: center;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.auth-btn:hover {
+    background: #8b5e34;
+    transform: translateY(-2px);  /* Эффект поднятия */
+}
+
+.auth-btn:active {
+    background: #4a2e14;
+    transform: translateY(2px);  /* Эффект сжатия */
+}
+
+.auth-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.7);  /* Эффект фокуса */
+}
+
+
+.auth-btn:hover {
+    background: #d4af37;
+    color: #1a1a1a;
+}

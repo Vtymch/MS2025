@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Server</title>
+    <link href="https://fonts.googleapis.com/css2?family=Luminari&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/index.css">
+    <link rel="icon" href="/static/favicon.ico">
+
+</head>
+<body>
+    <header>
+        <h1>Master Server</h1>
+    </header>
+
+    <nav>
+        <div class="ham-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="fire-container"></div>
+    <div class="ash-container"></div>
+
+    <div class="off-screen-menu">
+        <ul>
+            <li><a class="menu-link" href="/home.html">Home</a></li>
+            <li><a class="menu-link" href="/users.html">Users</a></li>
+            <li><a class="menu-link" href="/active-users.html">Active Users</a></li>
+            <li><a class="menu-link" href="/servers.html">Servers</a></li>
+            <li><a class="menu-link" href="/support-chat-bot.html">Support Chat Bot</a></li>
+            <li><a class="menu-link" href="/links.html">Links</a></li>
+            <li><a class="menu-link" href="/download-game.html">Download Game</a></li>
+        </ul>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Master Server</h2>
+            <p>Join our community and conquer the dark realms!</p>
+        </div>
+    </section>
+
+    <section class="status">
+        <h2>Server Status</h2>
+        <p id="server-status">Checking...</p>
+    </section>
+
+    <section class="users">
+        <h2>Active Users</h2>
+        <ul id="user-list">
+            <li>Loading...</li>
+        </ul>
+    </section>
+    
+    <section class="auth">
+        <button class="auth-btn" onclick="window.location.href='/login.html';">Login</button>
+        <button class="auth-btn" onclick="window.location.href='/signup.html';">Sign Up</button>
+        <button class="auth-btn" onclick="window.location.href='/logout.html';">Log Out</button>
+    </section>
+
+    <!-- Подключение скрипта с WebSocket -->
+    <script src="/static/script.js"></script>
+</body>
+</html>
+
